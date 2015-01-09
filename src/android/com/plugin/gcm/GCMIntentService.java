@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -126,8 +127,13 @@ public class GCMIntentService extends GCMBaseIntentService {
 		if (soundName != null) {
 			Resources r = getResources();
 			int resourceId = r.getIdentifier(soundName, "raw", context.getPackageName());
-			Uri soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resourceId);
-			mBuilder.setSound(soundUri);
+			if (resourceId == 0) {
+				Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+				mBuilder.setSound(soundUri);
+			} else {
+				Uri soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resourceId);
+				mBuilder.setSound(soundUri);
+			}
 		}
 		
 		int notId = 0;
