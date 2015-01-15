@@ -93,7 +93,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
-		int defaults = Notification.DEFAULT_ALL;
+		int defaults = Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE;
 
 		if (extras.getString("defaults") != null) {
 			try {
